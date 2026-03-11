@@ -35,11 +35,11 @@
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;justify-content:center}
     .chip{cursor:pointer;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--mint);background:rgba(0,255,195,.1)}
 
-    .map{height:430px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
-    .edge{position:absolute;height:2px;background:linear-gradient(90deg,rgba(0,255,195,.15),rgba(0,255,195,.9));transform-origin:0 0}
-    .dot{position:absolute;transform:translate(-50%,-50%);padding:5px 8px;border:1px solid rgba(0,255,195,.42);border-radius:8px;background:rgba(0,255,195,.12);font-size:10px;color:#d6fff6;text-align:center;line-height:1.15;min-width:84px}
+    .map{height:450px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
+    .edge{position:absolute;height:2px;background:linear-gradient(90deg,rgba(0,255,195,.15),rgba(0,255,195,.9));transform-origin:0 0;z-index:1}
+    .dot{position:absolute;transform:translate(-50%,-50%);padding:5px 8px;border:1px solid rgba(0,255,195,.42);border-radius:8px;background:rgba(0,18,14,.9);font-size:10px;color:#d6fff6;text-align:center;line-height:1.15;min-width:84px;z-index:3}
 
-    .topoViz{height:250px;margin-top:10px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
+    .topoViz{height:300px;margin-top:10px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
     .tNode{position:absolute;transform:translate(-50%,-50%);padding:4px 7px;border:1px solid rgba(0,255,195,.4);border-radius:8px;background:rgba(0,255,195,.14);font-size:10px;color:#d6fff6;white-space:nowrap}
 
     .modal{position:fixed;inset:0;background:rgba(0,5,5,.72);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
@@ -48,7 +48,7 @@
     .popup h3{margin:0 0 8px;color:#d8fff6}.popup p{margin:0 0 8px;color:#c2fff4;line-height:1.45}.popup ul{margin:0;padding-left:18px;color:#befff3}
     .close{margin-top:12px;cursor:pointer;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:rgba(0,255,195,.1);color:var(--mint);display:inline-block}
 
-    @media (max-width:1020px){.layout{grid-template-columns:1fr}.main{order:-1}.map{height:380px}.topoViz{height:230px}}
+    @media (max-width:1020px){.layout{grid-template-columns:1fr}.main{order:-1}.map{height:410px}.topoViz{height:280px}}
   </style>
 </head>
 <body>
@@ -114,9 +114,9 @@ const map=document.getElementById('map');
 const nodes=[
  ['Channels',50,10],
  ['Deploy',50,24],
- ['AI Triage',30,40],['Routing',70,40],
- ['Memory',24,56],['Vector',50,56],['Storage',76,56],
- ['3D Forest',18,72],
+ ['AI Triage',24,40],['Routing',76,40],
+ ['Memory',16,56],['Vector',50,56],['Storage',84,56],
+ ['3D Forest',8,72],
  ['Core',50,86]
 ];
 const edges=[[0,1],[1,2],[1,3],[2,5],[3,5],[4,5],[5,6],[4,7],[5,8],[6,8],[4,8]];
@@ -127,10 +127,10 @@ const topo=document.getElementById('topoViz');
 function drawTopo(){
   topo.innerHTML='';
   const bands=[
-    {label:'L3 DEPLOY', yLabel:10, yLine:16, yNode:20, items:['Deploy']},
-    {label:'L2 INTERFACES', yLabel:30, yLine:36, yNode:40, items:['Channels','Storage','3D Forest']},
-    {label:'L1 INTELLIGENCE', yLabel:50, yLine:56, yNode:60, items:['Memory','Vector','AI Triage','Routing']},
-    {label:'L0 FOUNDATION', yLabel:74, yLine:80, yNode:84, items:['Core']}
+    {label:'L3 DEPLOY', yLabel:6, yLine:14, yNode:22, items:['Deploy']},
+    {label:'L2 INTERFACES', yLabel:26, yLine:34, yNode:44, items:['Channels','Storage','3D Forest']},
+    {label:'L1 INTELLIGENCE', yLabel:50, yLine:58, yNode:68, items:['Memory','Vector','AI Triage','Routing']},
+    {label:'L0 FOUNDATION', yLabel:76, yLine:84, yNode:92, items:['Core']}
   ];
   bands.forEach(b=>{
     const line=document.createElement('div');
