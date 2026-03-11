@@ -95,7 +95,7 @@ const nodes=[
  ['Deploy',50,24],
  ['AI Triage',24,40],['Routing',76,40],
  ['Memory',16,56],['Vector',50,56],['Storage',84,56],
- ['3D Forest',8,72],
+ ['3D Forest',84,72],
  ['Core',50,86]
 ];
 const edges=[[0,1],[1,2],[1,3],[2,5],[3,5],[4,5],[5,6],[4,7],[5,8],[6,8],[4,8]];
@@ -107,10 +107,10 @@ const topo=document.getElementById('topoViz');
 function drawTopo(){
   topo.innerHTML='';
   const bands=[
-    {label:'L3 DEPLOY', yLine:12, yLabel:16, yNode:24, items:['Deploy']},
-    {label:'L2 INTERFACES', yLine:32, yLabel:36, yNode:44, items:['Channels','Storage','3D Forest']},
-    {label:'L1 INTELLIGENCE', yLine:56, yLabel:60, yNode:68, items:['Memory','Vector','AI Triage','Routing']},
-    {label:'L0 FOUNDATION', yLine:80, yLabel:84, yNode:92, items:['Core']}
+    {label:'L3 DEPLOY', yLine:12, yLabel:16, yNode:27, items:['Deploy']},
+    {label:'L2 INTERFACES', yLine:32, yLabel:36, yNode:47, items:['Channels','Storage','3D Forest']},
+    {label:'L1 INTELLIGENCE', yLine:56, yLabel:60, yNode:71, items:['Memory','Vector','AI Triage','Routing']},
+    {label:'L0 FOUNDATION', yLine:80, yLabel:84, yNode:94, items:['Core']}
   ];
   bands.forEach(b=>{
     const line=document.createElement('div');
@@ -146,7 +146,10 @@ const detail={
 };
 const modal=document.getElementById('modal'),mTitle=document.getElementById('mTitle'),mDesc=document.getElementById('mDesc'),mBullets=document.getElementById('mBullets');
 function openDetail(key){const d=detail[key];if(!d)return;mTitle.textContent=d.t;mDesc.textContent=d.d;mBullets.innerHTML='';d.b.forEach(x=>{const li=document.createElement('li');li.textContent=x;mBullets.appendChild(li)});modal.classList.add('open')}
-document.querySelectorAll('[data-key]').forEach(el=>el.addEventListener('click',()=>openDetail(el.dataset.key)));
+document.addEventListener('click',e=>{
+  const hit=e.target.closest('[data-key]');
+  if(hit && hit.dataset.key){ openDetail(hit.dataset.key); }
+});
 document.getElementById('closeBtn').onclick=()=>modal.classList.remove('open');
 modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
 </script>
