@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jarvis Hologram Interface — LederCap</title>
+  <style>
+    :root {
+      --bg: #000505;
+      --mint: #00FFC3;
+      --text: #FFFFFF;
+      --red: #FF6B6B;
+      --glass: rgba(0, 255, 195, 0.08);
+      --glass-2: rgba(255, 255, 255, 0.03);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: radial-gradient(circle at 70% 20%, #01251e 0%, var(--bg) 45%); color: var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+    .matrix {
+      position: fixed; inset: 0; pointer-events: none; opacity: 0.09;
+      background-image: linear-gradient(rgba(0,255,195,.12) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,195,.1) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 90%);
+    }
+
+    .shell { max-width: 1240px; margin: 0 auto; padding: 28px 18px 64px; }
+
+    .hud {
+      border: 1px solid rgba(0,255,195,.45);
+      background: linear-gradient(180deg, var(--glass), var(--glass-2));
+      border-radius: 18px;
+      box-shadow: 0 0 22px rgba(0,255,195,.15), inset 0 0 24px rgba(0,255,195,.05);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero { padding: 26px; display: grid; gap: 14px; }
+    .kicker { color: var(--mint); letter-spacing: .16em; font-size: 11px; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(1.5rem, 3.5vw, 2.7rem); line-height: 1.1; }
+    .sub { color: #b8fff0; max-width: 900px; line-height: 1.5; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { border: 1px solid rgba(0,255,195,.35); color: var(--mint); padding: 6px 10px; border-radius: 999px; font-size: 12px; background: rgba(0,255,195,.08); }
+
+    .grid { margin-top: 18px; display: grid; gap: 14px; grid-template-columns: repeat(12, 1fr); }
+    .card { padding: 16px; min-height: 100px; }
+    .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; } .span-8 { grid-column: span 8; } .span-12 { grid-column: span 12; }
+
+    h2 { margin: 0 0 10px; font-size: 1rem; color: var(--mint); letter-spacing: .05em; text-transform: uppercase; }
+    h3 { margin: 10px 0 6px; font-size: .95rem; color: #c9fff4; }
+    ul { margin: 0; padding-left: 18px; line-height: 1.5; }
+    li { margin: 4px 0; }
+
+    .kv { display: grid; grid-template-columns: 1fr auto; gap: 8px; font-size: .9rem; padding: 7px 0; border-bottom: 1px solid rgba(0,255,195,.14); }
+    .kv:last-child { border-bottom: 0; }
+    .kv b { color: #bffff0; font-weight: 600; }
+
+    .node-map { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    .node {
+      border: 1px solid rgba(0,255,195,.24);
+      border-radius: 10px;
+      padding: 10px;
+      background: rgba(0,255,195,.05);
+    }
+
+    .footer { margin-top: 18px; font-size: 12px; color: #8cebd7; opacity: .9; }
+    .warn { color: var(--red); }
+
+    @media (max-width: 980px) {
+      .span-4, .span-6, .span-8 { grid-column: span 12; }
+      .hero { padding: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="matrix"></div>
+  <main class="shell">
+    <section class="hud hero">
+      <div class="kicker">Lederle Capital // Jarvis System Map</div>
+      <h1>Hologram Interface: AI Operating Stack + Memory Architecture</h1>
+      <p class="sub">
+        A single-page visual brief of what we are building: codebase topology, memory layer, vector retrieval for local ML triage,
+        model-routing strategy, messaging channels, and redundancy protocols across local workspace, Obsidian SSD, and GitHub.
+      </p>
+      <div class="chips">
+        <span class="chip">Midnight Void #000505</span>
+        <span class="chip">Neural Mint #00FFC3</span>
+        <span class="chip">Pure Signal #FFFFFF</span>
+        <span class="chip">Holographic Glass UI</span>
+        <span class="chip">Mobile + Desktop Compatible</span>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="hud card span-8">
+        <h2>Core System Architecture</h2>
+        <div class="node-map">
+          <div class="node"><h3>1) Interaction Layer</h3><ul><li>Telegram direct + groups</li><li>Future: broader channel surface</li><li>Command + natural language control</li></ul></div>
+          <div class="node"><h3>2) Orchestration Layer</h3><ul><li>OpenClaw Gateway + agent sessions</li><li>Tool routing + skill execution</li><li>Session memory and heartbeat loops</li></ul></div>
+          <div class="node"><h3>3) Intelligence Layer</h3><ul><li>Primary reasoning model + fallbacks</li><li>xAI fallback validation active</li><li>Route-specific model selection</li></ul></div>
+          <div class="node"><h3>4) Persistence Layer</h3><ul><li>Workspace markdown memory</li><li>Long-term MEMORY.md</li><li>Daily operational logs</li></ul></div>
+        </div>
+      </article>
+
+      <article class="hud card span-4">
+        <h2>Messaging Channels</h2>
+        <div class="kv"><span>Primary Channel</span><b>Telegram</b></div>
+        <div class="kv"><span>Direct Chat</span><b>Active</b></div>
+        <div class="kv"><span>Group Mode</span><b>Policy Controlled</b></div>
+        <div class="kv"><span>Google Workspace CLI</span><b>Authenticated</b></div>
+      </article>
+
+      <article class="hud card span-6">
+        <h2>Memory + Vector Retrieval Stack</h2>
+        <ul>
+          <li><b>Human-readable memory:</b> MEMORY.md + <code>memory/YYYY-MM-DD.md</code></li>
+          <li><b>Vector backend:</b> local embeddings with <code>nomic-embed-text</code></li>
+          <li><b>Search mode:</b> semantic retrieval first, snippets for token efficiency</li>
+          <li><b>Triage intent:</b> route queries to fast/default/reasoning model tiers</li>
+          <li><b>Use case:</b> fast recall for decisions, people, project context, and ops state</li>
+        </ul>
+      </article>
+
+      <article class="hud card span-6">
+        <h2>Model Routing + Tiers</h2>
+        <div class="kv"><span>Default Reasoning</span><b>OpenAI 5.3 Codex</b></div>
+        <div class="kv"><span>Fast Fallback</span><b>xAI grok-4-1-fast</b></div>
+        <div class="kv"><span>Memory Search Embeddings</span><b>Local Ollama</b></div>
+        <div class="kv"><span>Design Pattern</span><b>Task-based route policy</b></div>
+        <p style="margin-top:10px;color:#b5fff0;font-size:.9rem;">Goal: keep high quality on critical work while reducing cost/latency on routine operations.</p>
+      </article>
+
+      <article class="hud card span-8">
+        <h2>Storage + Redundancy Protocol</h2>
+        <ul>
+          <li><b>Local canonical workspace:</b> <code>~/.openclaw/workspace</code></li>
+          <li><b>SSD mirror / Obsidian vault path:</b> <code>/Volumes/Jarvis/Jarvis/</code></li>
+          <li><b>Versioned backup:</b> private GitHub repo snapshots</li>
+          <li><b>Operational scripts:</b> sync, snapshot, push workflows in <code>scripts/backup/</code></li>
+          <li><b>Recovery posture:</b> local-first continuity + off-device version history</li>
+        </ul>
+      </article>
+
+      <article class="hud card span-4">
+        <h2>3D Memory Forest</h2>
+        <ul>
+          <li>Interactive hierarchy map of memory + projects</li>
+          <li>Desktop walk mode + WebXR scaffolding</li>
+          <li>Generated graph from workspace state</li>
+          <li>Future: semantic edge weights + timeline slider</li>
+        </ul>
+      </article>
+
+      <article class="hud card span-12">
+        <h2>Codebase Domains Represented</h2>
+        <div class="node-map">
+          <div class="node"><b>Social Capital Research</b><br/>Deep dives, publishing ops, reporting artifacts, standards.</div>
+          <div class="node"><b>Nestpoint Diligence</b><br/>Market intelligence, weekly refreshes, DD frameworks.</div>
+          <div class="node"><b>LederCap Web Platform</b><br/>Holo-Matrix UI stack, financial tooling roadmap, APIs.</div>
+          <div class="node"><b>Infrastructure</b><br/>Vector memory, routing layer, backup architecture, automation.</div>
+          <div class="node"><b>Internal Tools</b><br/>3D memory forest and future operational dashboards.</div>
+        </div>
+      </article>
+
+      <article class="hud card span-12">
+        <h2>Deployment Readiness Notes</h2>
+        <ul>
+          <li>Designed to mirror LederCap visual language (mint hologram + dark matrix aesthetic).</li>
+          <li>Single-file app for easy embed into existing site shell.</li>
+          <li>Responsive on mobile and desktop.</li>
+          <li>Next upgrade: live data binding from memory index + channel status APIs.</li>
+          <li class="warn">Security principle: private system map by default; publish-safe variant should redact internal paths/tokens.</li>
+        </ul>
+      </article>
+    </section>
+
+    <div class="footer">Jarvis Hologram Interface v1 — built for internal briefing and future production integration.</div>
+  </main>
+</body>
+</html>
