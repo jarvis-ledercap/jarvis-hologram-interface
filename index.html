@@ -3,156 +3,141 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jarvis System Hologram — v3</title>
+  <title>Jarvis Systems Architecture</title>
   <style>
-    :root{
-      --bg:#000505; --mint:#00FFC3; --text:#fff; --muted:#9ceedd; --warn:#ffd166; --bad:#ff6b6b;
-      --glass:rgba(0,255,195,.08); --line:rgba(0,255,195,.26);
-    }
-    *{box-sizing:border-box} html,body{margin:0;background:radial-gradient(circle at 75% 8%,#02342b 0,#000505 40%);color:var(--text);font-family:Inter,system-ui,sans-serif}
-    #matrix{position:fixed;inset:0;z-index:0;opacity:.15}
-    .app{position:relative;z-index:2;max-width:1360px;margin:0 auto;padding:14px}
-    .glass{border:1px solid var(--line);background:linear-gradient(180deg,rgba(0,255,195,.14),rgba(255,255,255,.02));border-radius:14px;backdrop-filter:blur(6px);box-shadow:0 0 20px rgba(0,255,195,.18), inset 0 0 16px rgba(0,255,195,.06)}
-    .top{padding:16px 18px;display:grid;gap:8px}.k{font-size:11px;letter-spacing:.2em;color:var(--mint);text-transform:uppercase}.top h1{margin:0;font-size:clamp(1.2rem,2.6vw,2rem)}.top p{margin:0;color:#bffef3}
-    .badges{display:flex;flex-wrap:wrap;gap:8px}.badge{font-size:11px;padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:rgba(0,255,195,.1);color:var(--mint)}
-    .heroMap{height:210px;margin-top:8px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
+    :root{--bg:#000505;--mint:#00FFC3;--text:#fff;--muted:#b8fff0;--line:rgba(0,255,195,.28);--glass:rgba(0,255,195,.08)}
+    *{box-sizing:border-box} html,body{margin:0;background:radial-gradient(circle at 70% 5%,#023c31 0,#000505 45%);color:var(--text);font-family:Inter,system-ui,sans-serif}
+    #matrix{position:fixed;inset:0;z-index:0;opacity:.14}
+    .app{position:relative;z-index:2;max-width:1340px;margin:0 auto;padding:14px}
+    .glass{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(0,255,195,.14),rgba(255,255,255,.02));backdrop-filter:blur(6px);box-shadow:0 0 18px rgba(0,255,195,.18), inset 0 0 16px rgba(0,255,195,.05)}
 
-    .layout{display:grid;grid-template-columns:310px 1fr;gap:12px;margin-top:12px}
+    .hero{padding:22px 18px;text-align:center}
+    .hero .k{font-size:11px;letter-spacing:.18em;color:var(--mint);text-transform:uppercase;margin-bottom:6px}
+    .hero h1{margin:0;font-size:clamp(1.35rem,3.4vw,2.35rem)}
+    .hero p{margin:8px auto 0;max-width:860px;color:var(--muted)}
+
+    .layout{display:grid;grid-template-columns:300px 1fr;gap:12px;margin-top:12px}
     .panel{padding:12px}
+    h2{margin:0 0 10px;font-size:.85rem;letter-spacing:.08em;color:var(--mint);text-transform:uppercase}
 
-    .topology{position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
-    .topology h2,.content h2{margin:0 0 10px;font-size:.88rem;letter-spacing:.07em;color:var(--mint);text-transform:uppercase}
-    .node{cursor:pointer;padding:9px 10px;border:1px solid rgba(0,255,195,.2);border-radius:10px;margin-bottom:8px;background:rgba(0,255,195,.06);font-size:13px;display:flex;justify-content:space-between;align-items:center}
-    .node:hover,.node.active{border-color:rgba(0,255,195,.55);box-shadow:0 0 10px rgba(0,255,195,.2)}
-    .tiny{font-size:11px;color:var(--muted)}
+    .topology .node{cursor:pointer;padding:10px;border:1px solid rgba(0,255,195,.2);border-radius:10px;background:rgba(0,255,195,.05);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+    .topology .node:hover{border-color:rgba(0,255,195,.55);box-shadow:0 0 12px rgba(0,255,195,.2)}
+    .tiny{font-size:11px;color:#9ceedd}
 
-    .contentGrid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}
-    .card{grid-column:span 6;padding:12px}
-    .card.full{grid-column:span 12}
-    .hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-    .hdr h3{margin:0;font-size:.95rem;color:#d5fff6}
-    .stat{font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid var(--line);color:var(--mint)}
+    .health .row{display:grid;grid-template-columns:1fr auto;padding:6px 0;border-bottom:1px solid rgba(0,255,195,.12);font-size:13px}
+    .health .row:last-child{border-bottom:0}.ok{color:var(--mint)}
 
-    details{border:1px solid rgba(0,255,195,.2);border-radius:10px;padding:8px 10px;background:rgba(0,255,195,.04);margin-bottom:8px}
-    summary{cursor:pointer;color:#cffff6;font-weight:600}
-    details p,details ul{color:#baf8ed;font-size:13px;line-height:1.45}
-    ul{margin:8px 0 0;padding-left:18px}
+    .main{padding:12px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+    .chip{cursor:pointer;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--mint);background:rgba(0,255,195,.1)}
+    .chip:hover{box-shadow:0 0 10px rgba(0,255,195,.25)}
 
-    .map{height:220px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
-    .dot{position:absolute;transform:translate(-50%,-50%);padding:4px 8px;border:1px solid rgba(0,255,195,.4);border-radius:8px;background:rgba(0,255,195,.12);font-size:11px;color:#d3fff6}
-    .edge{position:absolute;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,195,.7),transparent);transform-origin:0 0}
+    .map{height:420px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
+    .edge{position:absolute;height:1px;background:linear-gradient(90deg,transparent,rgba(0,255,195,.85),transparent);transform-origin:0 0}
+    .dot{position:absolute;transform:translate(-50%,-50%);padding:5px 9px;border:1px solid rgba(0,255,195,.42);border-radius:8px;background:rgba(0,255,195,.12);font-size:11px;color:#d6fff6;white-space:nowrap}
 
-    .statusLine{display:grid;grid-template-columns:1fr auto;gap:8px;padding:7px 0;border-bottom:1px solid rgba(0,255,195,.12);font-size:13px}
-    .ok{color:var(--mint)} .warn{color:var(--warn)} .bad{color:var(--bad)}
+    .modal{position:fixed;inset:0;background:rgba(0,5,5,.72);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
+    .modal.open{display:flex}
+    .popup{max-width:760px;width:100%;padding:16px;border:1px solid rgba(0,255,195,.5);border-radius:14px;background:linear-gradient(180deg,rgba(0,255,195,.2),rgba(255,255,255,.04));box-shadow:0 0 25px rgba(0,255,195,.25)}
+    .popup h3{margin:0 0 8px;color:#d8fff6}.popup p{margin:0 0 8px;color:#c2fff4;line-height:1.45}.popup ul{margin:0;padding-left:18px;color:#befff3}
+    .close{margin-top:12px;cursor:pointer;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:rgba(0,255,195,.1);color:var(--mint);display:inline-block}
 
-    @media (max-width:1050px){.layout{grid-template-columns:1fr}.topology{position:static;max-height:none}.card{grid-column:span 12}}
+    @media (max-width:1020px){.layout{grid-template-columns:1fr}.map{height:330px}}
   </style>
 </head>
 <body>
 <canvas id="matrix"></canvas>
 <div class="app">
-  <section class="glass top">
-    <div class="k">LederCap // Jarvis Hologram Interface v3</div>
-    <h1>Jarvis Architecture Hologram</h1>
-    <p>Click any system node to pivot context. Expand/collapse modules for depth. Information density is high by design; cognitive load is controlled through progressive disclosure.</p>
-    <div class="badges"><span class="badge">Interactive Topology</span><span class="badge">Expandable System Cards</span><span class="badge">Memory + Vector + Routing</span><span class="badge">Channels + Redundancy</span><span class="badge" id="focusTag">FOCUS: CORE</span></div>
-    <div class="heroMap" id="map"></div>
+  <section class="glass hero">
+    <div class="k">Lederle Capital</div>
+    <h1>Jarvis Systems Architecture</h1>
+    <p>An interactive architecture surface for understanding the AI operating stack, memory system, model routing, messaging interfaces, and resilience design.</p>
   </section>
 
   <section class="layout">
     <aside class="glass panel topology">
       <h2>Live Health</h2>
-      <div class="statusLine"><span>Gateway</span><b class="ok">ONLINE</b></div>
-      <div class="statusLine"><span>Telegram</span><b class="ok">CONNECTED</b></div>
-      <div class="statusLine"><span>Google CLI</span><b class="ok">AUTHED</b></div>
-      <div class="statusLine"><span>Vector Index</span><b class="ok">READY</b></div>
-      <div class="statusLine"><span>Pages Deploy</span><b class="ok">LIVE</b></div>
+      <div class="health">
+        <div class="row"><span>Gateway</span><b class="ok">ONLINE</b></div>
+        <div class="row"><span>Telegram</span><b class="ok">CONNECTED</b></div>
+        <div class="row"><span>Google CLI</span><b class="ok">AUTHED</b></div>
+        <div class="row"><span>Vector Index</span><b class="ok">READY</b></div>
+        <div class="row"><span>GitHub Pages</span><b class="ok">LIVE</b></div>
+      </div>
 
-      <h2 style="margin-top:16px">System Topology</h2>
-      <div class="node active" data-target="core"><span>Jarvis Core Runtime</span><span class="tiny">L0</span></div>
-      <div class="node" data-target="memory"><span>Memory Architecture</span><span class="tiny">L1</span></div>
-      <div class="node" data-target="vector"><span>Vector + Retrieval</span><span class="tiny">L1</span></div>
-      <div class="node" data-target="routing"><span>Model Triage Layer</span><span class="tiny">L1</span></div>
-      <div class="node" data-target="channels"><span>Messaging + Workspace</span><span class="tiny">L2</span></div>
-      <div class="node" data-target="storage"><span>Storage + Redundancy</span><span class="tiny">L2</span></div>
-      <div class="node" data-target="forest"><span>3D Memory Forest</span><span class="tiny">L3</span></div>
-      <div class="node" data-target="deploy"><span>Deploy Surface</span><span class="tiny">L3</span></div>
+      <h2 style="margin-top:14px">Topology</h2>
+      <div class="node" data-key="core"><span>Core Runtime</span><span class="tiny">L0</span></div>
+      <div class="node" data-key="memory"><span>Memory Layer</span><span class="tiny">L1</span></div>
+      <div class="node" data-key="vector"><span>Vector Retrieval</span><span class="tiny">L1</span></div>
+      <div class="node" data-key="routing"><span>Model Routing</span><span class="tiny">L1</span></div>
+      <div class="node" data-key="channels"><span>Messaging Interfaces</span><span class="tiny">L2</span></div>
+      <div class="node" data-key="storage"><span>Storage Redundancy</span><span class="tiny">L2</span></div>
+      <div class="node" data-key="forest"><span>3D Memory Forest</span><span class="tiny">L3</span></div>
+      <div class="node" data-key="deploy"><span>Deploy Surface</span><span class="tiny">L3</span></div>
     </aside>
 
-    <main class="content">
-      <div class="contentGrid">
-        <article class="glass card" data-section="core">
-          <div class="hdr"><h3>Jarvis Core Runtime</h3><span class="stat">Control Plane</span></div>
-          <details open><summary>What this layer does</summary><p>Handles sessions, tool execution, policy, and workflow orchestration from chat input to external action.</p></details>
-          <details><summary>Key components</summary><ul><li>OpenClaw Gateway + agent sessions</li><li>Skill selection + tool routing</li><li>Session persistence + heartbeat loops</li></ul></details>
-        </article>
-
-        <article class="glass card" data-section="memory">
-          <div class="hdr"><h3>Memory Architecture</h3><span class="stat">Context Plane</span></div>
-          <details open><summary>Human-readable memory model</summary><ul><li><code>MEMORY.md</code> (long-term)</li><li><code>memory/YYYY-MM-DD.md</code> (daily operational logs)</li><li>Index-first retrieval strategy to reduce token burn</li></ul></details>
-          <details><summary>Why it matters</summary><p>Preserves continuity across sessions and gives deterministic references for decisions, people, and project state.</p></details>
-        </article>
-
-        <article class="glass card" data-section="vector">
-          <div class="hdr"><h3>Vector + Retrieval Layer</h3><span class="stat">Semantic Plane</span></div>
-          <details open><summary>Current stack</summary><ul><li>Local embedding model: <code>nomic-embed-text</code></li><li>Semantic search + snippet recall</li><li>Hybrid recall for speed + precision</li></ul></details>
-          <details><summary>Near-term upgrades</summary><ul><li>Hot/warm/cold memory partitions</li><li>Weighted links across project clusters</li><li>Query telemetry for relevance tuning</li></ul></details>
-        </article>
-
-        <article class="glass card" data-section="routing">
-          <div class="hdr"><h3>Model Triage Layer</h3><span class="stat">Inference Plane</span></div>
-          <details open><summary>Tier strategy</summary><ul><li>Default reasoning: OpenAI 5.3 Codex</li><li>Fast fallback: xAI grok-4-1-fast</li><li>Route by task type (fast/default/reasoning)</li></ul></details>
-          <details><summary>Operating objective</summary><p>Maximize work quality while controlling latency and spend through route-aware model selection.</p></details>
-        </article>
-
-        <article class="glass card" data-section="channels">
-          <div class="hdr"><h3>Messaging + Workspace</h3><span class="stat">Interface Plane</span></div>
-          <details open><summary>Current interfaces</summary><ul><li>Primary: Telegram direct + group context</li><li>Google Workspace CLI: Gmail/Docs/Drive ops</li><li>Cross-session messaging + sub-agent orchestration</li></ul></details>
-        </article>
-
-        <article class="glass card" data-section="storage">
-          <div class="hdr"><h3>Storage + Redundancy</h3><span class="stat">Recovery Plane</span></div>
-          <details open><summary>Redundancy protocol</summary><ul><li>Local canonical workspace on Mac mini</li><li>SSD/Obsidian mirror for persistent vaulting</li><li>GitHub snapshots for off-device history</li><li>Automated backup scripts for sync + push</li></ul></details>
-        </article>
-
-        <article class="glass card" data-section="forest">
-          <div class="hdr"><h3>3D Memory Forest</h3><span class="stat">Spatial Plane</span></div>
-          <details open><summary>Current capabilities</summary><ul><li>Navigable tree map of memory and projects</li><li>Desktop walk mode + XR scaffolding</li><li>Generated from memory graph artifacts</li></ul></details>
-        </article>
-
-        <article class="glass card" data-section="deploy">
-          <div class="hdr"><h3>Deployment Surface</h3><span class="stat">Comms Plane</span></div>
-          <details open><summary>Storytelling role</summary><p>This interface is the visual narrative bridge for explaining architecture to non-technical and technical stakeholders alike.</p></details>
-          <details><summary>Productionization path</summary><ul><li>Live status API binding</li><li>Private/public mode toggle with redaction rules</li><li>Embed into LederCap site shell</li></ul></details>
-        </article>
+    <main class="glass main">
+      <h2>Architecture Constellation</h2>
+      <div class="chips">
+        <div class="chip" data-key="core">Core</div>
+        <div class="chip" data-key="memory">Memory</div>
+        <div class="chip" data-key="vector">Vector</div>
+        <div class="chip" data-key="routing">Routing</div>
+        <div class="chip" data-key="channels">Channels</div>
+        <div class="chip" data-key="storage">Storage</div>
+        <div class="chip" data-key="forest">3D Forest</div>
       </div>
+      <div class="map" id="map"></div>
     </main>
   </section>
 </div>
 
+<div class="modal" id="modal">
+  <div class="popup">
+    <h3 id="mTitle"></h3>
+    <p id="mDesc"></p>
+    <ul id="mBullets"></ul>
+    <div class="close" id="closeBtn">Close</div>
+  </div>
+</div>
+
 <script>
-  // Matrix
-  const cvs=document.getElementById('matrix'),ctx=cvs.getContext('2d');
-  const letters='01アカサタナハマヤ0123456789'; const size=14; let cols=[];
-  function fit(){cvs.width=innerWidth;cvs.height=innerHeight;cols=Array(Math.floor(cvs.width/size)).fill(0)} fit(); addEventListener('resize',fit);
-  (function rain(){ctx.fillStyle='rgba(0,5,5,0.08)';ctx.fillRect(0,0,cvs.width,cvs.height);ctx.fillStyle='#00FFC3';ctx.font=size+'px monospace';
-    cols.forEach((y,i)=>{ctx.fillText(letters[Math.floor(Math.random()*letters.length)],i*size,y);cols[i]=y>cvs.height&&Math.random()>.98?0:y+size}); requestAnimationFrame(rain)})();
+// matrix animation
+const cv=document.getElementById('matrix'),ctx=cv.getContext('2d'); const chars='01アカサタナハマヤラ0123456789'; const fs=14; let cols=[];
+function fit(){cv.width=innerWidth;cv.height=innerHeight;cols=Array(Math.floor(cv.width/fs)).fill(0)} fit(); addEventListener('resize',fit);
+(function rain(){ctx.fillStyle='rgba(0,5,5,.085)';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle='#00FFC3';ctx.font=fs+'px monospace';
+cols.forEach((y,i)=>{ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*fs,y);cols[i]=y>cv.height&&Math.random()>.98?0:y+fs});requestAnimationFrame(rain)})();
 
-  // Topology focus interactions
-  const nodes=[...document.querySelectorAll('.node')], cards=[...document.querySelectorAll('[data-section]')], tag=document.getElementById('focusTag');
-  nodes.forEach(n=>n.addEventListener('click',()=>{nodes.forEach(x=>x.classList.remove('active'));n.classList.add('active');
-    const t=n.dataset.target; tag.textContent='FOCUS: '+t.toUpperCase();
-    cards.forEach(c=>c.style.outline='none'); const card=document.querySelector(`[data-section="${t}"]`); if(card){card.style.outline='1px solid rgba(0,255,195,.7)'; card.scrollIntoView({behavior:'smooth',block:'center'});} }));
+// logical constellation layout (top-down layered)
+const map=document.getElementById('map');
+const nodes=[
+ ['Core Runtime',50,10],
+ ['Memory Layer',28,28],['Vector Retrieval',50,28],['Model Routing',72,28],
+ ['Messaging Interfaces',28,50],['Storage Redundancy',50,50],['3D Memory Forest',72,50],
+ ['Deploy Surface',50,74]
+];
+const edges=[[0,1],[0,2],[0,3],[1,4],[2,5],[3,6],[4,7],[5,7],[6,7]];
+function draw(){map.innerHTML='';const w=map.clientWidth,h=map.clientHeight;
+edges.forEach(([a,b])=>{const A=nodes[a],B=nodes[b],x1=A[1]/100*w,y1=A[2]/100*h,x2=B[1]/100*w,y2=B[2]/100*h;const l=document.createElement('div');l.className='edge';const dx=x2-x1,dy=y2-y1;l.style.left=x1+'px';l.style.top=y1+'px';l.style.width=Math.hypot(dx,dy)+'px';l.style.transform=`rotate(${Math.atan2(dy,dx)*180/Math.PI}deg)`;map.appendChild(l)});
+nodes.forEach(([label,x,y])=>{const d=document.createElement('div');d.className='dot';d.style.left=x+'%';d.style.top=y+'%';d.textContent=label;map.appendChild(d)});
+}
+draw(); addEventListener('resize',draw);
 
-  // Constellation map
-  const map=document.getElementById('map');
-  const n=[['Core',50,50],['Memory',25,23],['Vector',77,23],['Routing',77,74],['Channels',25,74],['Storage',46,86],['3D Forest',10,50],['Deploy',90,50]];
-  const e=[[0,1],[0,2],[2,3],[0,4],[4,5],[1,5],[0,6],[0,7],[3,7]];
-  function drawMap(){map.innerHTML=''; const w=map.clientWidth,h=map.clientHeight;
-    e.forEach(([a,b])=>{const A=n[a],B=n[b]; const x1=A[1]/100*w,y1=A[2]/100*h,x2=B[1]/100*w,y2=B[2]/100*h; const d=document.createElement('div'); d.className='edge'; const dx=x2-x1,dy=y2-y1; d.style.left=x1+'px'; d.style.top=y1+'px'; d.style.width=Math.hypot(dx,dy)+'px'; d.style.transform=`rotate(${Math.atan2(dy,dx)*180/Math.PI}deg)`; map.appendChild(d);});
-    n.forEach(([label,x,y])=>{const d=document.createElement('div'); d.className='dot'; d.style.left=x+'%'; d.style.top=y+'%'; d.textContent=label; map.appendChild(d);});
-  }
-  drawMap(); addEventListener('resize',drawMap);
+const detail={
+ core:{t:'Core Runtime',d:'The orchestration layer that converts chat intent into governed action.',b:['OpenClaw gateway + session control','Skill/tool orchestration with policy checks','Heartbeat and operational automation']},
+ memory:{t:'Memory Layer',d:'Long and short-horizon memory architecture for continuity.',b:['MEMORY.md for durable context','Daily memory logs for operational state','Index-first retrieval for token efficiency']},
+ vector:{t:'Vector Retrieval',d:'Semantic lookup layer for fast context grounding.',b:['Local embeddings (nomic-embed-text)','Hybrid semantic + snippet recall','Built for low-latency triage']},
+ routing:{t:'Model Routing',d:'Task-aware model selection across quality/speed tiers.',b:['Default deep reasoning path','Fast fallback model path','Future confidence-scored router']},
+ channels:{t:'Messaging Interfaces',d:'Operator and delivery interfaces for execution.',b:['Telegram as primary command surface','Google Workspace CLI for docs/gmail','Cross-session coordination hooks']},
+ storage:{t:'Storage Redundancy',d:'Resilience protocol across local and mirrored systems.',b:['Local canonical workspace','SSD/Obsidian mirror path','GitHub snapshot recovery path']},
+ forest:{t:'3D Memory Forest',d:'Spatial system visualization for architecture comprehension.',b:['Navigable memory/project topology','Desktop walk mode + XR scaffolding','Bridge to future live operational map']},
+ deploy:{t:'Deploy Surface',d:'Public-facing architecture narrative endpoint.',b:['GitHub Pages deployment live','Can be embedded into LederCap shell','Private/public mode evolution path']}
+};
+const modal=document.getElementById('modal'),mTitle=document.getElementById('mTitle'),mDesc=document.getElementById('mDesc'),mBullets=document.getElementById('mBullets');
+function openDetail(key){const d=detail[key]; if(!d) return; mTitle.textContent=d.t; mDesc.textContent=d.d; mBullets.innerHTML=''; d.b.forEach(x=>{const li=document.createElement('li');li.textContent=x;mBullets.appendChild(li)}); modal.classList.add('open');}
+document.querySelectorAll('[data-key]').forEach(el=>el.addEventListener('click',()=>openDetail(el.dataset.key)));
+document.getElementById('closeBtn').onclick=()=>modal.classList.remove('open');
+modal.addEventListener('click',e=>{if(e.target===modal) modal.classList.remove('open')});
 </script>
 </body>
 </html>
