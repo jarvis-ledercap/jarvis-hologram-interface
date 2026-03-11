@@ -19,7 +19,10 @@
     .hero .sub{margin:2px 0 0;color:#d7fff7;font-size:clamp(.95rem,2.4vw,1.2rem);letter-spacing:.06em;text-transform:uppercase}
     .hero p{margin:8px auto 0;max-width:860px;color:var(--muted)}
 
-    .layout{display:grid;grid-template-columns:300px 1fr;gap:12px;margin-top:12px}
+    .layout{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+    .infoPanel{display:none;padding:12px}
+    .infoTitle{font-size:.8rem;color:var(--mint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+    .infoBody h3{margin:0 0 8px;color:#d8fff6}.infoBody p{margin:0 0 8px;color:#c2fff4;line-height:1.45}.infoBody ul{margin:0;padding-left:18px;color:#befff3}
     .panel{padding:12px}
     h2{margin:0 0 10px;font-size:.85rem;letter-spacing:.08em;color:var(--mint);text-transform:uppercase}
 
@@ -52,7 +55,8 @@
     .popup h3{margin:0 0 8px;color:#d8fff6}.popup p{margin:0 0 8px;color:#c2fff4;line-height:1.45}.popup ul{margin:0;padding-left:18px;color:#befff3}
     .close{margin-top:12px;cursor:pointer;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:rgba(0,255,195,.1);color:var(--mint);display:inline-block}
 
-    @media (max-width:1020px){.layout{grid-template-columns:1fr}.main{order:-1}.map{height:410px}}
+    @media (max-width:899px){.layout{grid-template-columns:1fr}.main{order:-1}.map{height:410px}}
+    @media (min-width:900px){body{overflow:hidden}.app{height:100vh;display:flex;flex-direction:column}.hero{padding:12px 18px;text-align:left;display:flex;align-items:center;gap:14px;justify-content:space-between}.hero p{max-width:56ch;margin:0}.layout{grid-template-columns:320px minmax(0,1fr) 320px;grid-template-areas:'detail main health';flex:1;min-height:0;align-items:stretch}.infoPanel{display:block;overflow:auto;grid-area:detail;height:100%}.main{overflow:hidden;display:flex;flex-direction:column;grid-area:main;height:100%}.map{flex:1;height:auto;min-height:320px}.topology{overflow:auto;grid-area:health;height:100%}}
   </style>
 </head>
 <body>
@@ -76,17 +80,20 @@
         <div class="row"><span>GitHub Pages</span><b class="ok">LIVE</b></div>
       </div>
 
-      </aside>
-
-    <main class="glass main">
-      <h2>Architecture Constellation</h2>
-      <div class="map" id="map"></div>
       <div class="topoViz" id="topoViz">
         <div class="layer"><div class="layerLabel">L3 Deploy</div><div class="pillRow"><div class="pill" data-key="deploy">Deploy</div></div></div>
         <div class="layer"><div class="layerLabel">L2 Interfaces</div><div class="pillRow"><div class="pill" data-key="channels">Channels</div><div class="pill" data-key="storage">Storage</div><div class="pill" data-key="forest">3D Forest</div></div></div>
         <div class="layer"><div class="layerLabel">L1 Intelligence</div><div class="pillRow"><div class="pill" data-key="memory">Memory</div><div class="pill" data-key="vector">Vector</div><div class="pill" data-key="triage">AI Triage</div><div class="pill" data-key="routing">Routing</div></div></div>
         <div class="layer"><div class="layerLabel">L0 Foundation</div><div class="pillRow"><div class="pill" data-key="core">Core</div></div></div>
       </div>
+
+      </aside>
+
+    <aside class="glass infoPanel" id="infoPanel"><div class="infoTitle">Node Detail</div><div class="infoBody" id="infoBody"><h3>Select a node</h3><p>On desktop, node details open here in-panel.</p></div></aside>
+
+    <main class="glass main">
+      <h2>Architecture Constellation</h2>
+      <div class="map" id="map"></div>
     </main>
   </section>
 </div>
@@ -124,7 +131,7 @@ const detail={
  deploy:{t:'Deploy Surface',d:'Public-facing architecture narrative endpoint.',b:['GitHub Pages live','Embeddable into LederCap shell']}
 };
 const modal=document.getElementById('modal'),mTitle=document.getElementById('mTitle'),mDesc=document.getElementById('mDesc'),mBullets=document.getElementById('mBullets');
-function openDetail(key){const d=detail[key];if(!d)return;mTitle.textContent=d.t;mDesc.textContent=d.d;mBullets.innerHTML='';d.b.forEach(x=>{const li=document.createElement('li');li.textContent=x;mBullets.appendChild(li)});modal.classList.add('open')}
+function openDetail(key){const d=detail[key];if(!d)return;const desktop=window.matchMedia('(min-width:1021px)').matches; if(desktop){const ib=document.getElementById('infoBody'); if(ib){ib.innerHTML=`<h3>${d.t}</h3><p>${d.d}</p><ul>${d.b.map(x=>`<li>${x}</li>`).join('')}</ul>`;} return;} mTitle.textContent=d.t;mDesc.textContent=d.d;mBullets.innerHTML='';d.b.forEach(x=>{const li=document.createElement('li');li.textContent=x;mBullets.appendChild(li)});modal.classList.add('open')}
 document.addEventListener('click',e=>{
   const hit=e.target.closest('[data-key]');
   if(hit && hit.dataset.key){ openDetail(hit.dataset.key); }
