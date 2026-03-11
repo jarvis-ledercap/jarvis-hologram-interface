@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jarvis Systems Architecture</title>
   <style>
-    :root{--bg:#000505;--mint:#00FFC3;--text:#fff;--muted:#b8fff0;--line:rgba(0,255,195,.28);--glass:rgba(0,255,195,.08)}
-    *{box-sizing:border-box} html,body{margin:0;background:radial-gradient(circle at 70% 5%,#023c31 0,#000505 45%);color:var(--text);font-family:Inter,system-ui,sans-serif}
+    :root{--bg:#000505;--mint:#00FFC3;--text:#fff;--muted:#b8fff0;--line:rgba(0,255,195,.28)}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:radial-gradient(circle at 70% 5%,#023c31 0,#000505 45%);color:var(--text);font-family:Inter,system-ui,sans-serif}
     #matrix{position:fixed;inset:0;z-index:0;opacity:.14}
     .app{position:relative;z-index:2;max-width:1340px;margin:0 auto;padding:14px}
     .glass{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(0,255,195,.14),rgba(255,255,255,.02));backdrop-filter:blur(6px);box-shadow:0 0 18px rgba(0,255,195,.18), inset 0 0 16px rgba(0,255,195,.05)}
@@ -17,7 +18,6 @@
     .hero h1{margin:0;font-size:clamp(1.5rem,3.8vw,2.6rem)}
     .hero .sub{margin:2px 0 0;color:#d7fff7;font-size:clamp(.95rem,2.4vw,1.2rem);letter-spacing:.06em;text-transform:uppercase}
     .hero p{margin:8px auto 0;max-width:860px;color:var(--muted)}
-    .main h2{text-align:center}
 
     .layout{display:grid;grid-template-columns:300px 1fr;gap:12px;margin-top:12px}
     .panel{padding:12px}
@@ -31,18 +31,16 @@
     .health .row:last-child{border-bottom:0}.ok{color:var(--mint)}
 
     .main{padding:12px}
+    .main h2{text-align:center}
     .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;justify-content:center}
     .chip{cursor:pointer;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:12px;color:var(--mint);background:rgba(0,255,195,.1)}
-    .chip:hover{box-shadow:0 0 10px rgba(0,255,195,.25)}
 
-    .map{height:420px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
-    .topoViz{height:260px;margin-top:10px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
-    .ring{position:absolute;left:50%;transform:translateX(-50%);border:1px solid rgba(0,255,195,.25);border-radius:50%}
-    .sweep{position:absolute;left:50%;bottom:0;width:2px;height:100%;background:linear-gradient(180deg,transparent,rgba(0,255,195,.9));transform-origin:50% 100%;animation:spin 6s linear infinite;opacity:.45}
-    @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    .map{height:430px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
+    .edge{position:absolute;height:2px;background:linear-gradient(90deg,rgba(0,255,195,.15),rgba(0,255,195,.9));transform-origin:0 0}
+    .dot{position:absolute;transform:translate(-50%,-50%);padding:5px 8px;border:1px solid rgba(0,255,195,.42);border-radius:8px;background:rgba(0,255,195,.12);font-size:10px;color:#d6fff6;text-align:center;line-height:1.15;min-width:84px}
+
+    .topoViz{height:250px;margin-top:10px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
     .tNode{position:absolute;transform:translate(-50%,-50%);padding:4px 7px;border:1px solid rgba(0,255,195,.4);border-radius:8px;background:rgba(0,255,195,.14);font-size:10px;color:#d6fff6;white-space:nowrap}
-    .edge{position:absolute;height:2px;background:linear-gradient(90deg,rgba(0,255,195,.12),rgba(0,255,195,.9));transform-origin:0 0}
-    .dot{position:absolute;transform:translate(-50%,-50%);padding:5px 8px;border:1px solid rgba(0,255,195,.42);border-radius:8px;background:rgba(0,255,195,.12);font-size:10px;color:#d6fff6;white-space:normal;text-align:center;line-height:1.15;min-width:84px;max-width:96px}
 
     .modal{position:fixed;inset:0;background:rgba(0,5,5,.72);display:none;align-items:center;justify-content:center;padding:16px;z-index:9}
     .modal.open{display:flex}
@@ -50,7 +48,7 @@
     .popup h3{margin:0 0 8px;color:#d8fff6}.popup p{margin:0 0 8px;color:#c2fff4;line-height:1.45}.popup ul{margin:0;padding-left:18px;color:#befff3}
     .close{margin-top:12px;cursor:pointer;border:1px solid var(--line);border-radius:8px;padding:8px 10px;background:rgba(0,255,195,.1);color:var(--mint);display:inline-block}
 
-    @media (max-width:1020px){.layout{grid-template-columns:1fr}.main{order:-1}.map{height:360px}.topoViz{height:230px}}
+    @media (max-width:1020px){.layout{grid-template-columns:1fr}.main{order:-1}.map{height:380px}.topoViz{height:230px}}
   </style>
 </head>
 <body>
@@ -89,14 +87,15 @@
     <main class="glass main">
       <h2>Architecture Constellation</h2>
       <div class="chips">
-        <div class="chip" data-key="core">Core</div>
-        <div class="chip" data-key="memory">Memory</div>
-        <div class="chip" data-key="vector">Vector</div>
+        <div class="chip" data-key="channels">Channels</div>
+        <div class="chip" data-key="deploy">Deploy</div>
         <div class="chip" data-key="triage">Triage</div>
         <div class="chip" data-key="routing">Routing</div>
-        <div class="chip" data-key="channels">Channels</div>
+        <div class="chip" data-key="memory">Memory</div>
+        <div class="chip" data-key="vector">Vector</div>
         <div class="chip" data-key="storage">Storage</div>
         <div class="chip" data-key="forest">3D Forest</div>
+        <div class="chip" data-key="core">Core</div>
       </div>
       <div class="map" id="map"></div>
       <div class="topoViz" id="topoViz"></div>
@@ -104,85 +103,60 @@
   </section>
 </div>
 
-<div class="modal" id="modal">
-  <div class="popup">
-    <h3 id="mTitle"></h3>
-    <p id="mDesc"></p>
-    <ul id="mBullets"></ul>
-    <div class="close" id="closeBtn">Close</div>
-  </div>
-</div>
+<div class="modal" id="modal"><div class="popup"><h3 id="mTitle"></h3><p id="mDesc"></p><ul id="mBullets"></ul><div class="close" id="closeBtn">Close</div></div></div>
 
 <script>
-// matrix animation
-const cv=document.getElementById('matrix'),ctx=cv.getContext('2d'); const chars='01アカサタナハマヤラ0123456789'; const fs=14; let cols=[];
-function fit(){cv.width=innerWidth;cv.height=innerHeight;cols=Array(Math.floor(cv.width/fs)).fill(0)} fit(); addEventListener('resize',fit);
-(function rain(){ctx.fillStyle='rgba(0,5,5,.085)';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle='#00FFC3';ctx.font=fs+'px monospace';
-cols.forEach((y,i)=>{ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*fs,y);cols[i]=y>cv.height&&Math.random()>.98?0:y+fs});requestAnimationFrame(rain)})();
+const cv=document.getElementById('matrix'),ctx=cv.getContext('2d'),chars='01アカサタナハマヤラ0123456789';const fs=14;let cols=[];
+function fit(){cv.width=innerWidth;cv.height=innerHeight;cols=Array(Math.floor(cv.width/fs)).fill(0)}fit();addEventListener('resize',fit);
+(function rain(){ctx.fillStyle='rgba(0,5,5,.085)';ctx.fillRect(0,0,cv.width,cv.height);ctx.fillStyle='#00FFC3';ctx.font=fs+'px monospace';cols.forEach((y,i)=>{ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*fs,y);cols[i]=y>cv.height&&Math.random()>.98?0:y+fs});requestAnimationFrame(rain)})();
 
-// logical constellation layout (top-down layered)
 const map=document.getElementById('map');
 const nodes=[
- ['Channels',10,22],
- ['Core',28,22],
- ['Memory',46,14],['Vector',46,30],
- ['AI Triage',64,14],['Routing',64,30],
- ['Deploy',88,22],
- ['Storage',46,52],['3D Forest',64,52]
+ ['Channels',50,10],
+ ['Deploy',50,24],
+ ['AI Triage',38,40],['Routing',62,40],
+ ['Memory',35,56],['Vector',50,56],['Storage',65,56],
+ ['3D Forest',28,72],
+ ['Core',50,86]
 ];
-const edges=[[0,1],[1,2],[1,3],[2,4],[3,5],[4,6],[5,6],[2,7],[3,7],[7,8],[4,8]];
-function draw(){map.innerHTML='';const w=map.clientWidth,h=map.clientHeight;
-edges.forEach(([a,b])=>{const A=nodes[a],B=nodes[b],x1=A[1]/100*w,y1=A[2]/100*h,x2=B[1]/100*w,y2=B[2]/100*h;const l=document.createElement('div');l.className='edge';const dx=x2-x1,dy=y2-y1;l.style.left=x1+'px';l.style.top=y1+'px';l.style.width=Math.hypot(dx,dy)+'px';l.style.transform=`rotate(${Math.atan2(dy,dx)*180/Math.PI}deg)`;map.appendChild(l)});
-nodes.forEach(([label,x,y])=>{const d=document.createElement('div');d.className='dot';d.style.left=x+'%';d.style.top=y+'%';d.textContent=label;map.appendChild(d)});
+const edges=[[0,1],[1,2],[1,3],[2,5],[3,5],[4,5],[5,6],[4,7],[5,8],[6,8],[4,8]];
+function draw(){map.innerHTML='';const w=map.clientWidth,h=map.clientHeight;edges.forEach(([a,b])=>{const A=nodes[a],B=nodes[b],x1=A[1]/100*w,y1=A[2]/100*h,x2=B[1]/100*w,y2=B[2]/100*h;const l=document.createElement('div');l.className='edge';const dx=x2-x1,dy=y2-y1;l.style.left=x1+'px';l.style.top=y1+'px';l.style.width=Math.hypot(dx,dy)+'px';l.style.transform=`rotate(${Math.atan2(dy,dx)*180/Math.PI}deg)`;map.appendChild(l)});nodes.forEach(([label,x,y])=>{const d=document.createElement('div');d.className='dot';d.style.left=x+'%';d.style.top=y+'%';d.textContent=label;map.appendChild(d)})}
+draw();addEventListener('resize',draw);
+
+const topo=document.getElementById('topoViz');
+function drawTopo(){
+  topo.innerHTML='';
+  const bands=[
+    {label:'L3 DEPLOY',y:14,items:['Deploy']},
+    {label:'L2 INTERFACES',y:34,items:['Channels','Storage','3D Forest']},
+    {label:'L1 INTELLIGENCE',y:56,items:['Memory','Vector','AI Triage','Routing']},
+    {label:'L0 FOUNDATION',y:80,items:['Core']}
+  ];
+  bands.forEach(b=>{
+    const line=document.createElement('div');line.style.cssText=`position:absolute;left:6%;top:${b.y}%;width:88%;height:1px;background:rgba(0,255,195,.35)`;topo.appendChild(line);
+    const label=document.createElement('div');label.textContent=b.label;label.style.cssText=`position:absolute;left:8px;top:calc(${b.y}% - 14px);font-size:10px;color:#98f4e3;letter-spacing:.06em`;topo.appendChild(label);
+    const gap=80/(Math.max(1,b.items.length-1));
+    b.items.forEach((it,i)=>{const d=document.createElement('div');d.className='tNode';d.textContent=it;const x=b.items.length===1?50:(10+i*gap);d.style.left=x+'%';d.style.top=b.y+'%';topo.appendChild(d)});
+  });
 }
-draw(); addEventListener('resize',draw);
+drawTopo();addEventListener('resize',drawTopo);
 
 const detail={
  core:{t:'Core Runtime',d:'The orchestration layer that converts chat intent into governed action.',b:['OpenClaw gateway + session control','Skill/tool orchestration with policy checks','Heartbeat and operational automation']},
  memory:{t:'Memory Layer',d:'Long and short-horizon memory architecture for continuity.',b:['MEMORY.md for durable context','Daily memory logs for operational state','Index-first retrieval for token efficiency']},
  vector:{t:'Vector Retrieval',d:'Semantic lookup layer for fast context grounding.',b:['Local embeddings (nomic-embed-text)','Hybrid semantic + snippet recall','Built for low-latency triage']},
- triage:{t:'AI Model Triage',d:'The policy engine that selects which model tier handles each request.',b:['Fast lane for routine tasks','Default lane for standard execution','Reasoning lane for complex synthesis']},
+ triage:{t:'AI Model Triage',d:'Policy engine selecting model tier per task.',b:['Fast lane for routine tasks','Default lane for standard execution','Reasoning lane for complex synthesis']},
  routing:{t:'Model Routing',d:'Task-aware model selection across quality/speed tiers.',b:['Default deep reasoning path','Fast fallback model path','Future confidence-scored router']},
- channels:{t:'Messaging Interfaces',d:'Operator and delivery interfaces for execution.',b:['Telegram as primary command surface','Google Workspace CLI for docs/gmail','Cross-session coordination hooks']},
+ channels:{t:'Messaging Interfaces',d:'Operator and delivery interfaces for execution.',b:['Telegram command surface','Google Workspace CLI','Cross-session coordination']},
  storage:{t:'Storage Redundancy',d:'Resilience protocol across local and mirrored systems.',b:['Local canonical workspace','SSD/Obsidian mirror path','GitHub snapshot recovery path']},
- forest:{t:'3D Memory Forest',d:'Spatial system visualization for architecture comprehension.',b:['Navigable memory/project topology','Desktop walk mode + XR scaffolding','Bridge to future live operational map']},
- deploy:{t:'Deploy Surface',d:'Public-facing architecture narrative endpoint.',b:['GitHub Pages deployment live','Can be embedded into LederCap shell','Private/public mode evolution path']}
+ forest:{t:'3D Memory Forest',d:'Spatial system visualization for architecture comprehension.',b:['Navigable memory/project topology','Desktop walk mode + XR scaffolding']},
+ deploy:{t:'Deploy Surface',d:'Public-facing architecture narrative endpoint.',b:['GitHub Pages live','Embeddable into LederCap shell']}
 };
 const modal=document.getElementById('modal'),mTitle=document.getElementById('mTitle'),mDesc=document.getElementById('mDesc'),mBullets=document.getElementById('mBullets');
-function openDetail(key){const d=detail[key]; if(!d) return; mTitle.textContent=d.t; mDesc.textContent=d.d; mBullets.innerHTML=''; d.b.forEach(x=>{const li=document.createElement('li');li.textContent=x;mBullets.appendChild(li)}); modal.classList.add('open');}
+function openDetail(key){const d=detail[key];if(!d)return;mTitle.textContent=d.t;mDesc.textContent=d.d;mBullets.innerHTML='';d.b.forEach(x=>{const li=document.createElement('li');li.textContent=x;mBullets.appendChild(li)});modal.classList.add('open')}
 document.querySelectorAll('[data-key]').forEach(el=>el.addEventListener('click',()=>openDetail(el.dataset.key)));
 document.getElementById('closeBtn').onclick=()=>modal.classList.remove('open');
-modal.addEventListener('click',e=>{if(e.target===modal) modal.classList.remove('open')});
+modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
 </script>
 </body>
-</html// Topography visual (stacked architectural bands)
-const topo=document.getElementById('topoViz');
-function drawTopo(){
-  topo.innerHTML='';
-  const bands=[
-    {label:'L3 Experience / Deploy', y:14, items:['Deploy Surface']},
-    {label:'L2 Interfaces + Persistence', y:34, items:['Channels','Storage','3D Forest']},
-    {label:'L1 Intelligence Services', y:56, items:['Memory','Vector','AI Triage','Routing']},
-    {label:'L0 Runtime Foundation', y:80, items:['Core Runtime']}
-  ];
-  bands.forEach(b=>{
-    const line=document.createElement('div');
-    line.style.cssText=`position:absolute;left:6%;top:${b.y}%;width:88%;height:1px;background:rgba(0,255,195,.35)`;
-    topo.appendChild(line);
-    const label=document.createElement('div');
-    label.textContent=b.label;
-    label.style.cssText=`position:absolute;left:8px;top:calc(${b.y}% - 16px);font-size:10px;color:#98f4e3;letter-spacing:.06em;text-transform:uppercase`;
-    topo.appendChild(label);
-    const gap=80/(Math.max(1,b.items.length-1));
-    b.items.forEach((it,i)=>{
-      const d=document.createElement('div'); d.className='tNode'; d.textContent=it;
-      const x=b.items.length===1?50:(10+i*gap);
-      d.style.left=x+'%'; d.style.top=b.y+'%';
-      topo.appendChild(d);
-    });
-  });
-}
-
-drawTopo(); addEventListener('resize',drawTopo);
-
->
+</html>
