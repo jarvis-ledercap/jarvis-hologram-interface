@@ -15,6 +15,7 @@
     .glass{border:1px solid var(--line);background:linear-gradient(180deg,rgba(0,255,195,.14),rgba(255,255,255,.02));border-radius:14px;backdrop-filter:blur(6px);box-shadow:0 0 20px rgba(0,255,195,.18), inset 0 0 16px rgba(0,255,195,.06)}
     .top{padding:16px 18px;display:grid;gap:8px}.k{font-size:11px;letter-spacing:.2em;color:var(--mint);text-transform:uppercase}.top h1{margin:0;font-size:clamp(1.2rem,2.6vw,2rem)}.top p{margin:0;color:#bffef3}
     .badges{display:flex;flex-wrap:wrap;gap:8px}.badge{font-size:11px;padding:4px 8px;border:1px solid var(--line);border-radius:999px;background:rgba(0,255,195,.1);color:var(--mint)}
+    .heroMap{height:210px;margin-top:8px;border:1px solid rgba(0,255,195,.24);border-radius:10px;position:relative;overflow:hidden;background:rgba(0,255,195,.03)}
 
     .layout{display:grid;grid-template-columns:310px 1fr;gap:12px;margin-top:12px}
     .panel{padding:12px}
@@ -52,14 +53,22 @@
 <div class="app">
   <section class="glass top">
     <div class="k">LederCap // Jarvis Hologram Interface v3</div>
-    <h1>Complex System, Simple Surface</h1>
+    <h1>Jarvis Architecture Hologram</h1>
     <p>Click any system node to pivot context. Expand/collapse modules for depth. Information density is high by design; cognitive load is controlled through progressive disclosure.</p>
-    <div class="badges"><span class="badge">Interactive Topology</span><span class="badge">Expandable System Cards</span><span class="badge">Memory + Vector + Routing</span><span class="badge">Channels + Redundancy</span></div>
+    <div class="badges"><span class="badge">Interactive Topology</span><span class="badge">Expandable System Cards</span><span class="badge">Memory + Vector + Routing</span><span class="badge">Channels + Redundancy</span><span class="badge" id="focusTag">FOCUS: CORE</span></div>
+    <div class="heroMap" id="map"></div>
   </section>
 
   <section class="layout">
     <aside class="glass panel topology">
-      <h2>System Topology</h2>
+      <h2>Live Health</h2>
+      <div class="statusLine"><span>Gateway</span><b class="ok">ONLINE</b></div>
+      <div class="statusLine"><span>Telegram</span><b class="ok">CONNECTED</b></div>
+      <div class="statusLine"><span>Google CLI</span><b class="ok">AUTHED</b></div>
+      <div class="statusLine"><span>Vector Index</span><b class="ok">READY</b></div>
+      <div class="statusLine"><span>Pages Deploy</span><b class="ok">LIVE</b></div>
+
+      <h2 style="margin-top:16px">System Topology</h2>
       <div class="node active" data-target="core"><span>Jarvis Core Runtime</span><span class="tiny">L0</span></div>
       <div class="node" data-target="memory"><span>Memory Architecture</span><span class="tiny">L1</span></div>
       <div class="node" data-target="vector"><span>Vector + Retrieval</span><span class="tiny">L1</span></div>
@@ -68,22 +77,10 @@
       <div class="node" data-target="storage"><span>Storage + Redundancy</span><span class="tiny">L2</span></div>
       <div class="node" data-target="forest"><span>3D Memory Forest</span><span class="tiny">L3</span></div>
       <div class="node" data-target="deploy"><span>Deploy Surface</span><span class="tiny">L3</span></div>
-
-      <h2 style="margin-top:16px">Live Health</h2>
-      <div class="statusLine"><span>Gateway</span><b class="ok">ONLINE</b></div>
-      <div class="statusLine"><span>Telegram</span><b class="ok">CONNECTED</b></div>
-      <div class="statusLine"><span>Google CLI</span><b class="ok">AUTHED</b></div>
-      <div class="statusLine"><span>Vector Index</span><b class="ok">READY</b></div>
-      <div class="statusLine"><span>Pages Deploy</span><b class="ok">LIVE</b></div>
     </aside>
 
     <main class="content">
       <div class="contentGrid">
-        <article class="glass card full">
-          <div class="hdr"><h3>Architecture Constellation</h3><span class="stat" id="focusTag">FOCUS: CORE</span></div>
-          <div class="map" id="map"></div>
-        </article>
-
         <article class="glass card" data-section="core">
           <div class="hdr"><h3>Jarvis Core Runtime</h3><span class="stat">Control Plane</span></div>
           <details open><summary>What this layer does</summary><p>Handles sessions, tool execution, policy, and workflow orchestration from chat input to external action.</p></details>
