@@ -4,15 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jarvis Systems Architecture</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mint: '#00FFC3',
+            'mint-muted': '#b8fff0',
+            'line': 'rgba(0,255,195,.28)',
+            'ledercap-blue': '#1e40af', // Congruent blue accent from Drive Tailwind
+          }
+        }
+      }
+    }
+  </script>
   <style>
     :root{--bg:#000505;--mint:#00FFC3;--text:#fff;--muted:#b8fff0;--line:rgba(0,255,195,.28)}
     *{box-sizing:border-box}
     html,body{margin:0;background:radial-gradient(circle at 70% 5%,#023c31 0,#000505 45%);color:var(--text);font-family:Inter,system-ui,sans-serif}
     #matrix{position:fixed;inset:0;z-index:0;opacity:.14}
-    .app{position:relative;z-index:2;max-width:1340px;margin:0 auto;padding:14px}
-    .glass{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,rgba(0,255,195,.14),rgba(255,255,255,.02));backdrop-filter:blur(6px);box-shadow:0 0 18px rgba(0,255,195,.18), inset 0 0 16px rgba(0,255,195,.05)}
+    .app{position:relative;z-index:2;max-w-6xl mx-auto p-4 md:p-8}
+    .glass{ring-1 ring-line/50 rounded-2xl bg-gradient-to-b from-mint/10 to-white/5 backdrop-blur-md shadow-2xl shadow-mint/20 ring-inset ring-mint/10}
 
-    .hero{padding:22px 18px;text-align:center}
+    .hero{p-6 md:p-8 text-center}
     .hero .k{font-size:11px;letter-spacing:.18em;color:var(--mint);text-transform:uppercase;margin-bottom:6px}
     .hero .k a{color:var(--mint);text-decoration:none;border-bottom:1px solid rgba(0,255,195,.45)}
     .hero h1{margin:0;font-size:clamp(1.5rem,3.8vw,2.6rem)}
