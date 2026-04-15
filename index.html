@@ -6,104 +6,93 @@
   <title>Jarvis Systems Architecture</title>
   <style>
     :root{
-      --bg:#07101b;
-      --bg-soft:#0c1727;
-      --panel:#0f1c2f;
-      --panel-2:#13233c;
-      --panel-3:#172b48;
-      --line:rgba(120,154,255,.14);
-      --line-strong:rgba(120,154,255,.34);
-      --text:#ecf3ff;
-      --muted:#9cb0d3;
-      --blue:#7ba5ff;
+      --bg:#08111d;
+      --bg-soft:#0d1728;
+      --panel:#101c31;
+      --panel-2:#13223a;
+      --card:#172844;
+      --line:rgba(120,154,255,.12);
+      --line-strong:rgba(120,154,255,.30);
+      --text:#edf4ff;
+      --muted:#9db0d0;
+      --blue:#7da6ff;
       --cyan:#7dd3fc;
-      --teal:#65e7d2;
+      --teal:#67e8d4;
       --green:#59d087;
       --amber:#f0c86a;
-      --red:#fb7185;
       --shadow:0 18px 60px rgba(0,0,0,.34);
       --radius:18px;
     }
-
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:
-      radial-gradient(circle at top left, rgba(38,64,108,.48), transparent 30%),
-      radial-gradient(circle at top right, rgba(26,73,112,.32), transparent 26%),
-      linear-gradient(180deg, #09111d 0%, #07101b 100%);
+      radial-gradient(circle at top left, rgba(37,63,106,.42), transparent 28%),
+      radial-gradient(circle at top right, rgba(22,77,114,.24), transparent 24%),
+      linear-gradient(180deg, #09111d 0%, #06101a 100%);
       color:var(--text);
       font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
     body{min-height:100vh}
-    a{color:inherit}
 
-    .shell{max-width:1600px;margin:0 auto;padding:22px 22px 40px}
-    .hero{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:18px;align-items:start;margin-bottom:18px}
+    .shell{max-width:1580px;margin:0 auto;padding:24px 24px 40px}
+    .hero{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start;margin-bottom:18px}
     .eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);font-weight:700}
-    h1{margin:6px 0 8px;font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.98;letter-spacing:-.04em}
-    .sub{max-width:980px;font-size:15px;line-height:1.65;color:var(--muted)}
-    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .tag{padding:7px 10px;border-radius:999px;border:1px solid var(--line-strong);background:rgba(123,165,255,.08);font-size:12px;color:#dbe7ff}
+    h1{margin:8px 0 10px;font-size:clamp(2.3rem,4.6vw,4.7rem);line-height:.96;letter-spacing:-.045em}
+    .sub{max-width:960px;font-size:15px;line-height:1.68;color:var(--muted)}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .chip{padding:7px 10px;border-radius:999px;border:1px solid var(--line-strong);background:rgba(125,166,255,.08);font-size:12px;color:#d9e6ff}
+    .frame{padding:16px 16px 14px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(19,34,58,.92), rgba(11,20,35,.96));border:1px solid var(--line);box-shadow:var(--shadow)}
+    .frame .label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+    .frame .body{margin-top:8px;font-size:13px;line-height:1.6;color:#dbe7ff}
 
-    .framing{padding:16px 16px 14px;border-radius:var(--radius);background:linear-gradient(180deg, rgba(19,35,60,.92), rgba(11,22,38,.96));border:1px solid var(--line);box-shadow:var(--shadow)}
-    .framing .label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
-    .framing .body{margin-top:8px;font-size:13px;line-height:1.6;color:#dbe7ff}
-
-    .summaryGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}
+    .summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:18px}
     .summaryCard{padding:14px 14px 13px;border-radius:16px;background:linear-gradient(180deg, rgba(17,30,50,.92), rgba(10,18,31,.96));border:1px solid var(--line);box-shadow:var(--shadow)}
     .summaryCard .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
-    .summaryCard h3{margin:0 0 6px;font-size:15px;color:#f3f7ff}
+    .summaryCard h3{margin:0 0 6px;font-size:15px;color:#f2f6ff}
     .summaryCard p{margin:0;font-size:12px;line-height:1.55;color:var(--muted)}
 
-    .panel{border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(16,28,47,.95), rgba(8,14,25,.98));box-shadow:var(--shadow)}
+    .panel{border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(15,27,45,.95), rgba(8,14,24,.98));box-shadow:var(--shadow)}
     .panelHead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:16px 18px 0}
     .panelHead h2{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
-    .panelHead p{margin:8px 0 0;font-size:13px;color:var(--muted);line-height:1.55;max-width:780px}
-    .compactStatus{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+    .panelHead p{margin:8px 0 0;font-size:13px;line-height:1.58;color:var(--muted);max-width:840px}
+    .statusRow{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
     .pill{padding:6px 9px;border-radius:999px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;border:1px solid}
     .ok{color:var(--green);border-color:rgba(89,208,135,.34);background:rgba(89,208,135,.1)}
-    .warn{color:var(--amber);border-color:rgba(240,200,106,.32);background:rgba(240,200,106,.1)}
-    .info{color:var(--blue);border-color:rgba(123,165,255,.34);background:rgba(123,165,255,.1)}
+    .warn{color:var(--amber);border-color:rgba(240,200,106,.34);background:rgba(240,200,106,.1)}
+    .info{color:var(--blue);border-color:rgba(125,166,255,.34);background:rgba(125,166,255,.1)}
 
-    .canvasWrap{padding:16px 18px 18px}
-    .canvas{position:relative;min-height:1080px;border-radius:18px;border:1px solid rgba(123,165,255,.1);overflow:hidden;background:
-      linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px),
-      radial-gradient(circle at 50% 0%, rgba(125,211,252,.06), transparent 34%),
-      linear-gradient(180deg, rgba(15,28,47,.88), rgba(7,12,21,.98));
-      background-size:28px 28px,28px 28px,auto,auto}
+    .flowWrap{padding:18px}
+    .architecture{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;align-items:stretch}
+    .stage{position:relative;padding:14px;border-radius:18px;border:1px solid rgba(125,166,255,.12);background:linear-gradient(180deg, rgba(19,34,58,.74), rgba(10,18,31,.96));min-height:510px}
+    .stage::before{content:"";position:absolute;top:22px;right:-8px;width:16px;height:16px;border-top:2px solid rgba(125,166,255,.34);border-right:2px solid rgba(125,166,255,.34);transform:rotate(45deg)}
+    .stage:last-child::before{display:none}
+    .stageLabel{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+    .stageTitle{font-size:18px;font-weight:700;color:#f2f7ff;margin-bottom:8px}
+    .stageDesc{font-size:13px;line-height:1.58;color:var(--muted);margin-bottom:14px}
 
-    .lane{position:absolute;left:20px;right:20px;border-top:1px solid rgba(123,165,255,.12)}
-    .lane .title{position:absolute;left:0;top:-10px;padding:0 9px 0 0;background:transparent;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .card{padding:12px 12px 11px;border-radius:14px;background:linear-gradient(180deg, rgba(24,42,70,.98), rgba(12,21,35,.98));border:1px solid var(--line-strong);margin-bottom:10px}
+    .card:last-child{margin-bottom:0}
+    .card .k{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+    .card h3{margin:0 0 5px;font-size:15px;color:#f0f6ff}
+    .card p{margin:0;font-size:12px;line-height:1.55;color:#b8c9e7}
 
-    .coreRail{position:absolute;left:50%;top:78px;bottom:120px;width:2px;background:linear-gradient(180deg, rgba(123,165,255,.18), rgba(123,165,255,.5), rgba(123,165,255,.14));box-shadow:0 0 18px rgba(123,165,255,.18)}
+    .connector{display:flex;align-items:center;gap:8px;justify-content:center;margin:10px 0 12px;font-size:11px;letter-spacing:.04em;color:#d8e5ff}
+    .connector .line{height:1px;flex:1;background:linear-gradient(90deg, transparent, rgba(125,166,255,.55), transparent)}
 
-    .node{position:absolute;width:250px;padding:14px 14px 13px;border-radius:16px;border:1px solid var(--line-strong);background:linear-gradient(180deg, rgba(24,41,68,.98), rgba(11,20,34,.98));box-shadow:0 14px 34px rgba(0,0,0,.28)}
-    .node.primary{border-color:rgba(125,211,252,.55);background:linear-gradient(180deg, rgba(22,43,71,.99), rgba(10,22,38,.99))}
-    .node.success{border-color:rgba(89,208,135,.34)}
-    .node.warned{border-color:rgba(240,200,106,.34)}
-    .node.operator{border-color:rgba(101,231,210,.38)}
-    .node .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-    .node h3{margin:0 0 6px;font-size:16px;color:#f2f7ff}
-    .node p{margin:0;font-size:12px;line-height:1.55;color:#b8c9e7}
-    .node .mini{margin-top:9px;font-size:11px;color:#8ea6cf}
-
-    .bridge{position:absolute;display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:rgba(10,18,31,.84);border:1px solid rgba(123,165,255,.14);font-size:11px;color:#dce6fb;backdrop-filter:blur(6px)}
-
-    svg.flow{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-    .flow path,.flow line{stroke:rgba(123,165,255,.52);stroke-width:2.4;fill:none}
-    .flow .soft{stroke:rgba(125,211,252,.22);stroke-dasharray:8 8}
-    .flow .green{stroke:rgba(89,208,135,.5)}
-    .flow .amber{stroke:rgba(240,200,106,.44)}
-    .flow text{fill:#d9e7ff;font-size:11px;letter-spacing:.04em}
-    .flow marker path{fill:rgba(123,165,255,.92)}
-    .flow marker.green path{fill:rgba(89,208,135,.92)}
-    .flow marker.amber path{fill:rgba(240,200,106,.92)}
+    .recovery{margin-top:16px;padding:14px;border-radius:18px;border:1px solid rgba(125,166,255,.12);background:linear-gradient(180deg, rgba(17,31,52,.82), rgba(9,17,29,.98))}
+    .recoveryHead{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:14px}
+    .recoveryHead h3{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue)}
+    .recoveryHead p{margin:8px 0 0;font-size:13px;line-height:1.58;color:var(--muted);max-width:780px}
+    .recoveryGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .backupCard{padding:13px;border-radius:15px;border:1px solid rgba(240,200,106,.18);background:linear-gradient(180deg, rgba(26,36,57,.94), rgba(13,18,30,.98))}
+    .backupCard .k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
+    .backupCard h4{margin:0 0 6px;font-size:15px;color:#f5f7ff}
+    .backupCard p{margin:0;font-size:12px;line-height:1.55;color:#c7d4ea}
 
     .details{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
-    details.card{border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(18,31,52,.92), rgba(10,18,31,.96));box-shadow:var(--shadow)}
-    details.card[open]{border-color:var(--line-strong)}
-    details.card summary{list-style:none;cursor:pointer;padding:15px 16px;font-size:13px;font-weight:700;color:#eef4ff;display:flex;justify-content:space-between;align-items:center}
-    details.card summary::-webkit-details-marker{display:none}
-    details.card summary span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
+    details.detail{border-radius:16px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(18,31,52,.92), rgba(10,18,31,.96));box-shadow:var(--shadow)}
+    details.detail[open]{border-color:var(--line-strong)}
+    details.detail summary{list-style:none;cursor:pointer;padding:15px 16px;font-size:13px;font-weight:700;color:#eef4ff;display:flex;justify-content:space-between;align-items:center}
+    details.detail summary::-webkit-details-marker{display:none}
+    details.detail summary span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600}
     .detailBody{padding:0 16px 16px}
     .detailBody p{margin:0 0 10px;font-size:12px;line-height:1.6;color:var(--muted)}
     .detailBody ul{margin:0;padding-left:18px;font-size:12px;line-height:1.55;color:#d4def1}
@@ -112,18 +101,19 @@
     .foot{margin-top:16px;padding:13px 16px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg, rgba(16,28,47,.82), rgba(8,14,25,.96));display:flex;justify-content:space-between;align-items:center;gap:14px}
     .foot .note{font-size:12px;color:var(--muted)}
     .legend{display:flex;gap:8px;flex-wrap:wrap}
-    .legend span{padding:6px 9px;border-radius:999px;border:1px solid rgba(123,165,255,.18);background:rgba(123,165,255,.06);font-size:12px;color:#dce8ff}
+    .legend span{padding:6px 9px;border-radius:999px;border:1px solid rgba(125,166,255,.18);background:rgba(125,166,255,.06);font-size:12px;color:#dce8ff}
 
-    @media (max-width:1300px){
-      .summaryGrid{grid-template-columns:repeat(2,minmax(0,1fr))}
-      .details{grid-template-columns:1fr 1fr}
+    @media (max-width:1320px){
+      .summary{grid-template-columns:1fr 1fr}
+      .architecture{grid-template-columns:1fr 1fr}
+      .recoveryGrid,.details{grid-template-columns:1fr 1fr}
+      .stage:nth-child(2)::before,.stage:nth-child(4)::before{display:none}
     }
-    @media (max-width:1020px){
+    @media (max-width:980px){
       .hero{grid-template-columns:1fr}
-      .summaryGrid{grid-template-columns:1fr}
-      .details{grid-template-columns:1fr}
-      .canvas{min-height:1360px}
-      .compactStatus{justify-content:flex-start}
+      .summary,.architecture,.recoveryGrid,.details{grid-template-columns:1fr}
+      .stage::before{display:none}
+      .statusRow{justify-content:flex-start}
     }
   </style>
 </head>
@@ -132,272 +122,245 @@
     <section class="hero">
       <div>
         <div class="eyebrow">Lederle Capital · Jarvis Operating System</div>
-        <h1>Architecture, not demo</h1>
+        <h1>System narrative, not spaghetti</h1>
         <div class="sub">
-          This view explains Jarvis as a technical operating system: where knowledge lives, where live execution happens,
-          how retrieval and integrations work, and how redundancy is structured. The goal is maximum clarity per screen inch.
+          This page is intended to explain Jarvis the way a strong CTO architecture review would: in a clean narrative arc.
+          Inputs enter the system, orchestration converts intent into governed execution, memory and retrieval ground the work,
+          outputs are delivered through real operating channels, and recovery is handled through separate backup domains.
         </div>
-        <div class="tags">
-          <span class="tag">Public Equity Dashboard palette</span>
-          <span class="tag">Wide central architecture canvas</span>
-          <span class="tag">Collapsible detail panels</span>
-          <span class="tag">Operator-readable first</span>
+        <div class="chips">
+          <span class="chip">Narrative-first architecture</span>
+          <span class="chip">Public equity dashboard palette</span>
+          <span class="chip">Reduced arrow noise</span>
+          <span class="chip">Collapsible details</span>
         </div>
       </div>
-      <div class="framing">
-        <div class="label">Current architecture thesis</div>
+      <div class="frame">
+        <div class="label">Current framing</div>
         <div class="body">
-          <strong>Memory source of truth:</strong> Obsidian vault on external SSD<br>
-          <strong>Live operating environment:</strong> OpenClaw workspace on local disk<br>
-          <strong>Workspace redundancy:</strong> local Mac mirror + GitHub<br>
-          <strong>Vault redundancy:</strong> local Mac mirror, with third-copy strategy still open
+          <strong>Knowledge source of truth:</strong> Obsidian vault on external SSD<br>
+          <strong>Execution source of truth:</strong> OpenClaw workspace on local disk<br>
+          <strong>Workspace recovery:</strong> local Mac mirror + GitHub<br>
+          <strong>Vault recovery:</strong> local Mac mirror, with third-copy strategy still open
         </div>
       </div>
     </section>
 
-    <section class="summaryGrid">
+    <section class="summary">
       <div class="summaryCard">
-        <div class="k">System 01</div>
-        <h3>Knowledge substrate</h3>
-        <p>Curated notes, long-form research, memory structure, and vault-native organization live in the Obsidian master vault.</p>
+        <div class="k">Core distinction</div>
+        <h3>Vault ≠ workspace</h3>
+        <p>The system only becomes legible once the knowledge layer and the live operating layer are treated as separate domains.</p>
       </div>
       <div class="summaryCard">
-        <div class="k">System 02</div>
-        <h3>Execution substrate</h3>
-        <p>OpenClaw gateway + workspace handle tool use, live sessions, scripts, runbooks, and operational logic.</p>
+        <div class="k">Design principle</div>
+        <h3>Readability first</h3>
+        <p>Architecture should read like a story with strong boundaries, not a crowded canvas of boxes and crossing arrows.</p>
       </div>
       <div class="summaryCard">
-        <div class="k">System 03</div>
-        <h3>Integration + recovery</h3>
-        <p>Google Workspace, messaging surfaces, and domain-specific backup paths connect Jarvis to real workflows without blurring system boundaries.</p>
+        <div class="k">Operating truth</div>
+        <h3>Integrations are real</h3>
+        <p>Google Workspace, messaging surfaces, and scheduled outputs are part of the machine, not nice-to-have appendages.</p>
       </div>
     </section>
 
     <section class="panel">
       <div class="panelHead">
         <div>
-          <h2>Architecture canvas</h2>
+          <h2>Operating flow</h2>
           <p>
-            Read top to bottom: operator interfaces feed the runtime, the runtime grounds into memory and retrieval,
-            retrieval powers outputs, and the whole machine is protected by separate backup paths for vault and workspace.
+            Follow the system from left to right. Each stage has a clear job, and each handoff has a clear reason.
+            This is meant to explain how Jarvis works in production, not just what files exist.
           </p>
         </div>
-        <div class="compactStatus">
+        <div class="statusRow">
           <span class="pill ok">Google authed</span>
-          <span class="pill ok">Brief pipeline live</span>
+          <span class="pill ok">Calendar flow live</span>
           <span class="pill ok">Workspace mirrored</span>
           <span class="pill ok">Vault mirrored</span>
-          <span class="pill warn">Vault 3rd copy open</span>
+          <span class="pill warn">Vault third copy open</span>
         </div>
       </div>
 
-      <div class="canvasWrap">
-        <div class="canvas">
-          <div class="lane" style="top:104px;"><div class="title">Operator interfaces</div></div>
-          <div class="lane" style="top:274px;"><div class="title">Runtime / orchestration</div></div>
-          <div class="lane" style="top:468px;"><div class="title">Memory / retrieval / architecture map</div></div>
-          <div class="lane" style="top:690px;"><div class="title">Outputs / delivery</div></div>
-          <div class="lane" style="top:880px;"><div class="title">Backup / recovery</div></div>
+      <div class="flowWrap">
+        <div class="architecture">
+          <div class="stage">
+            <div class="stageLabel">Stage 01</div>
+            <div class="stageTitle">Inputs</div>
+            <div class="stageDesc">The system starts with operator intent and connected external surfaces.</div>
 
-          <div class="coreRail"></div>
-
-          <div class="node operator" style="left:70px;top:136px;">
-            <div class="k">Human operator</div>
-            <h3>Curtis</h3>
-            <p>Decision-maker, reviewer, recipient of outputs, and owner of system constraints.</p>
-          </div>
-          <div class="node primary" style="left:376px;top:136px;">
-            <div class="k">Primary command surface</div>
-            <h3>OpenClaw / TUI / Chat</h3>
-            <p>Direct work, review, and operator oversight.</p>
-          </div>
-          <div class="node" style="left:700px;top:136px;">
-            <div class="k">Remote channels</div>
-            <h3>Telegram / Webchat</h3>
-            <p>Remote execution, briefings, reminders, and live operational reach.</p>
-          </div>
-          <div class="node" style="left:1010px;top:136px;">
-            <div class="k">Productivity layer</div>
-            <h3>Google Workspace</h3>
-            <p>Calendar, Gmail, Drive, Docs, and Sheets as the productivity substrate.</p>
+            <div class="card">
+              <div class="k">Human operator</div>
+              <h3>Curtis</h3>
+              <p>Decision-maker, reviewer, recipient of outputs, and owner of system constraints.</p>
+            </div>
+            <div class="connector"><div class="line"></div>commands / questions / approvals<div class="line"></div></div>
+            <div class="card">
+              <div class="k">Primary interface</div>
+              <h3>OpenClaw / TUI / Chat</h3>
+              <p>Direct command surface for work, oversight, iteration, and decision support.</p>
+            </div>
+            <div class="connector"><div class="line"></div>remote / external surfaces<div class="line"></div></div>
+            <div class="card">
+              <div class="k">Connected channels</div>
+              <h3>Telegram + Google Workspace</h3>
+              <p>Remote delivery, Gmail, Calendar, Drive, Docs, and Sheets as real operating interfaces.</p>
+            </div>
           </div>
 
-          <div class="node primary" style="left:538px;top:330px;">
-            <div class="k">Orchestration core</div>
-            <h3>OpenClaw Gateway</h3>
-            <p>Session orchestration, tool routing, safety controls, and live execution.</p>
-            <div class="mini">Primary center of operational gravity</div>
-          </div>
-          <div class="node" style="left:218px;top:330px;">
-            <div class="k">Execution environment</div>
-            <h3>OpenClaw Workspace</h3>
-            <p>Scripts, runbooks, memory files, and operating logic on the Mac mini.</p>
-          </div>
-          <div class="node" style="left:860px;top:330px;">
-            <div class="k">Model policy</div>
-            <h3>Reasoning + Fallback Models</h3>
-            <p>Primary and fallback model paths selected by task and operator settings.</p>
-          </div>
+          <div class="stage">
+            <div class="stageLabel">Stage 02</div>
+            <div class="stageTitle">Orchestration</div>
+            <div class="stageDesc">Intent is converted into governed execution through the runtime and workspace.</div>
 
-          <div class="bridge" style="left:435px;top:405px;">execution context</div>
-          <div class="bridge" style="left:648px;top:405px;">tool use + reasoning</div>
-
-          <div class="node primary" style="left:218px;top:542px;">
-            <div class="k">Primary memory</div>
-            <h3>Obsidian Master Vault</h3>
-            <p>Primary memory / knowledge source of truth on the external SSD.</p>
-          </div>
-          <div class="node" style="left:538px;top:542px;">
-            <div class="k">Index layer</div>
-            <h3>Vault Indexes</h3>
-            <p>Generated indexes that accelerate navigation and retrieval.</p>
-          </div>
-          <div class="node" style="left:860px;top:542px;">
-            <div class="k">Retrieval layer</div>
-            <h3>Memory Search + Vectors</h3>
-            <p>Hybrid semantic retrieval and snippet recall for context grounding.</p>
-          </div>
-          <div class="node" style="left:1180px;top:542px;">
-            <div class="k">Architecture surface</div>
-            <h3>System Maps / Interface</h3>
-            <p>Operator-facing architecture views that explain structure and flows.</p>
+            <div class="card">
+              <div class="k">Execution core</div>
+              <h3>OpenClaw Gateway</h3>
+              <p>Session orchestration, tool routing, safety controls, approvals, and execution management.</p>
+            </div>
+            <div class="connector"><div class="line"></div>runtime context<div class="line"></div></div>
+            <div class="card">
+              <div class="k">Execution environment</div>
+              <h3>OpenClaw Workspace</h3>
+              <p>Scripts, runbooks, memory files, and operational logic on the Mac mini.</p>
+            </div>
+            <div class="connector"><div class="line"></div>reasoning policy<div class="line"></div></div>
+            <div class="card">
+              <div class="k">Model policy</div>
+              <h3>Reasoning + Fallback Models</h3>
+              <p>Primary and fallback model paths selected by task type and operator settings.</p>
+            </div>
           </div>
 
-          <div class="bridge" style="left:395px;top:630px;">generated from source material</div>
-          <div class="bridge" style="left:708px;top:630px;">context retrieval</div>
-          <div class="bridge" style="left:1012px;top:630px;">explanation / operator clarity</div>
+          <div class="stage">
+            <div class="stageLabel">Stage 03</div>
+            <div class="stageTitle">Memory + retrieval</div>
+            <div class="stageDesc">The system grounds itself in durable knowledge, generated indexes, and retrieval layers.</div>
 
-          <div class="node success" style="left:218px;top:748px;">
-            <div class="k">Output stream</div>
-            <h3>Morning Brief / Alerts</h3>
-            <p>Recurring operating outputs assembled from schedule, market context, and priorities.</p>
-          </div>
-          <div class="node success" style="left:538px;top:748px;">
-            <div class="k">Output stream</div>
-            <h3>Research / Docs / Sheets</h3>
-            <p>Operational deliverables, working drafts, models, and Google-native artifacts.</p>
-          </div>
-          <div class="node success" style="left:860px;top:748px;">
-            <div class="k">Output stream</div>
-            <h3>Email / Drive / Messaging</h3>
-            <p>Distribution layer for getting work to Curtis and collaborators.</p>
-          </div>
-
-          <div class="node warned" style="left:218px;top:938px;">
-            <div class="k">Vault backup</div>
-            <h3>Vault Local Mirror</h3>
-            <p>Local Mac backup of the SSD vault; third-copy strategy remains open.</p>
-          </div>
-          <div class="node warned" style="left:538px;top:938px;">
-            <div class="k">Workspace backup</div>
-            <h3>Workspace Local Mirror</h3>
-            <p>Local backup of the active OpenClaw workspace for rapid restore.</p>
-          </div>
-          <div class="node warned" style="left:860px;top:938px;">
-            <div class="k">Remote backup</div>
-            <h3>GitHub Versioned Backup</h3>
-            <p>Remote, versioned recovery layer for the workspace only.</p>
+            <div class="card">
+              <div class="k">Primary memory</div>
+              <h3>Obsidian Master Vault</h3>
+              <p>Primary memory / knowledge source of truth on the external SSD.</p>
+            </div>
+            <div class="connector"><div class="line"></div>generated from source material<div class="line"></div></div>
+            <div class="card">
+              <div class="k">Acceleration layer</div>
+              <h3>Vault Indexes</h3>
+              <p>Generated indexes that improve navigation and reduce retrieval friction.</p>
+            </div>
+            <div class="connector"><div class="line"></div>semantic grounding<div class="line"></div></div>
+            <div class="card">
+              <div class="k">Retrieval layer</div>
+              <h3>Memory Search + Vectors</h3>
+              <p>Hybrid semantic retrieval and snippet recall for context grounding and decision support.</p>
+            </div>
           </div>
 
-          <svg class="flow" viewBox="0 0 1380 1020" preserveAspectRatio="none">
-            <defs>
-              <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
-                <path d="M0,0 L7,3.5 L0,7 z"></path>
-              </marker>
-              <marker id="arrowGreen" class="green" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
-                <path d="M0,0 L7,3.5 L0,7 z"></path>
-              </marker>
-              <marker id="arrowAmber" class="amber" markerWidth="8" markerHeight="8" refX="6" refY="3.5" orient="auto">
-                <path d="M0,0 L7,3.5 L0,7 z"></path>
-              </marker>
-            </defs>
+          <div class="stage">
+            <div class="stageLabel">Stage 04</div>
+            <div class="stageTitle">Outputs</div>
+            <div class="stageDesc">Grounded execution turns into deliverables, briefings, and distributed operator outputs.</div>
 
-            <path marker-end="url(#arrowBlue)" d="M 180 148 C 250 148, 278 148, 350 148" />
-            <path marker-end="url(#arrowBlue)" d="M 626 148 C 666 148, 676 148, 678 148" />
-            <path marker-end="url(#arrowBlue)" d="M 784 148 C 870 148, 898 148, 980 148" />
+            <div class="card">
+              <div class="k">Operational outputs</div>
+              <h3>Morning Brief / Alerts</h3>
+              <p>Recurring operating outputs assembled from schedule, market context, and priorities.</p>
+            </div>
+            <div class="connector"><div class="line"></div>work product<div class="line"></div></div>
+            <div class="card">
+              <div class="k">Working artifacts</div>
+              <h3>Research / Docs / Sheets</h3>
+              <p>Operational deliverables, drafts, models, and Google-native artifacts.</p>
+            </div>
+            <div class="connector"><div class="line"></div>distribution<div class="line"></div></div>
+            <div class="card">
+              <div class="k">Operator delivery</div>
+              <h3>Email / Drive / Messaging</h3>
+              <p>Distribution layer that gets work to Curtis and collaborators with the correct access model.</p>
+            </div>
+          </div>
+        </div>
 
-            <path marker-end="url(#arrowBlue)" d="M 500 172 C 520 230, 530 250, 538 312" />
-            <path marker-end="url(#arrowBlue)" d="M 760 172 C 710 228, 650 250, 586 312" />
-            <path marker-end="url(#arrowBlue)" d="M 1040 172 C 980 232, 948 252, 900 312" />
-            <path marker-end="url(#arrowBlue)" d="M 320 172 C 350 232, 410 252, 492 312" />
-
-            <path marker-end="url(#arrowBlue)" d="M 270 360 C 300 460, 320 500, 270 526" />
-            <path marker-end="url(#arrowBlue)" d="M 536 360 C 536 450, 536 478, 536 524" />
-            <path marker-end="url(#arrowBlue)" d="M 804 360 C 800 440, 834 478, 844 524" />
-
-            <path marker-end="url(#arrowBlue)" d="M 344 554 C 420 554, 434 554, 506 554" />
-            <path marker-end="url(#arrowBlue)" d="M 664 554 C 742 554, 758 554, 828 554" />
-            <path marker-end="url(#arrowBlue)" d="M 984 554 C 1084 554, 1096 554, 1148 554" />
-
-            <path marker-end="url(#arrowGreen)" class="green" d="M 270 586 C 270 676, 270 700, 270 732" />
-            <path marker-end="url(#arrowGreen)" class="green" d="M 536 586 C 536 676, 536 700, 536 732" />
-            <path marker-end="url(#arrowGreen)" class="green" d="M 844 586 C 844 676, 844 700, 844 732" />
-
-            <path marker-end="url(#arrowAmber)" class="amber" d="M 270 780 C 270 870, 270 894, 270 922" />
-            <path marker-end="url(#arrowAmber)" class="amber" d="M 536 780 C 536 870, 536 894, 536 922" />
-            <path marker-end="url(#arrowAmber)" class="amber" d="M 844 780 C 844 870, 844 894, 844 922" />
-
-            <path class="soft" d="M 268 552 C 320 430, 540 430, 540 356" />
-            <path class="soft" d="M 1168 554 C 1040 430, 740 430, 540 356" />
-            <path class="soft" d="M 270 950 C 410 1000, 708 1000, 846 950" />
-
-            <text x="620" y="336">execution center</text>
-            <text x="652" y="570">retrieval pipeline</text>
-            <text x="562" y="760">deliverables + distribution</text>
-            <text x="570" y="948">backup boundaries</text>
-          </svg>
+        <div class="recovery">
+          <div class="recoveryHead">
+            <div>
+              <h3>Recovery and redundancy</h3>
+              <p>
+                Recovery sits underneath the operating flow because it protects the system without confusing the narrative.
+                Backup strategy is intentionally separate by domain: vault recovery is not the same as workspace recovery.
+              </p>
+            </div>
+            <div class="statusRow">
+              <span class="pill info">domain-specific backups</span>
+              <span class="pill warn">vault strategy still open</span>
+            </div>
+          </div>
+          <div class="recoveryGrid">
+            <div class="backupCard">
+              <div class="k">Knowledge recovery</div>
+              <h4>Vault Local Mirror</h4>
+              <p>Local Mac backup of the SSD vault. Strong second copy, but third-copy standardization is still unresolved.</p>
+            </div>
+            <div class="backupCard">
+              <div class="k">Execution recovery</div>
+              <h4>Workspace Local Mirror</h4>
+              <p>Local backup of the active OpenClaw workspace for fast restore on the Mac mini.</p>
+            </div>
+            <div class="backupCard">
+              <div class="k">Remote recovery</div>
+              <h4>GitHub Versioned Backup</h4>
+              <p>Remote, versioned recovery layer for the workspace only, not the full vault.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="details">
-      <details class="card" open>
-        <summary>System thesis <span>open</span></summary>
+      <details class="detail" open>
+        <summary>What a CTO should take away <span>open</span></summary>
         <div class="detailBody">
-          <p>The core architectural idea is simple: Jarvis only becomes legible when memory, runtime, integrations, and recovery are treated as separate but connected systems.</p>
+          <p>The system is strongest when read as a layered operating model, not as a visual effects page.</p>
           <ul>
-            <li>Obsidian vault = knowledge source of truth</li>
-            <li>OpenClaw workspace = live execution environment</li>
-            <li>Indexes / vectors = retrieval acceleration layer</li>
-            <li>Google Workspace / channels = distribution and coordination layer</li>
+            <li>The core boundary is <strong>knowledge source of truth</strong> versus <strong>live execution environment</strong>.</li>
+            <li>Integrations matter because they connect the machine to real work, not because they make the stack look broader.</li>
+            <li>Backups should be discussed by domain so recovery logic stays legible.</li>
           </ul>
         </div>
       </details>
-
-      <details class="card">
-        <summary>Operator-facing interpretation <span>toggle</span></summary>
+      <details class="detail">
+        <summary>Google Workspace and channels <span>toggle</span></summary>
         <div class="detailBody">
-          <p>This machine should be readable to a human operator without needing to inspect source code or guess which directory matters.</p>
+          <p>Google Workspace is now part of the operational surface area, not just an optional add-on.</p>
           <ul>
-            <li>When Curtis asks for source of truth, clarify by domain</li>
-            <li>When Curtis asks for backup, clarify whether vault or workspace</li>
-            <li>When Jarvis creates outputs, ensure they land in the right channel with the right sharing model</li>
-            <li>Architecture clarity reduces operational error more than extra cleverness does</li>
+            <li>Calendar drives schedule visibility and morning brief inputs</li>
+            <li>Gmail supports read, draft, and send flows</li>
+            <li>Drive / Docs / Sheets are live artifact surfaces</li>
+            <li>Jarvis Drive folder acts as the default shared operating space</li>
           </ul>
         </div>
       </details>
-
-      <details class="card">
-        <summary>Integration / backup notes <span>toggle</span></summary>
+      <details class="detail">
+        <summary>Open architecture decisions <span>toggle</span></summary>
         <div class="detailBody">
-          <p>Google Workspace is now a live operating integration, while backup strategy is split by system domain.</p>
+          <p>Not every architectural question should be hidden. Mature systems surface unresolved decisions explicitly.</p>
           <ul>
-            <li>Google Calendar powers schedule visibility and morning brief inputs</li>
-            <li>Gmail / Docs / Sheets / Drive are live and usable</li>
-            <li>Workspace has local mirror + GitHub versioning</li>
-            <li>Vault has local mirror, but third-copy standardization is the open architecture decision</li>
+            <li>Vault third-copy strategy is still open</li>
+            <li>Visualization can later add richer drill-downs once the narrative structure is settled</li>
+            <li>The current priority is clarity, not extra interactivity</li>
           </ul>
         </div>
       </details>
     </section>
 
     <div class="foot">
-      <div class="note">Version focus: maximize readability and system comprehension before adding more interaction.</div>
+      <div class="note">Current design objective: make the architecture explainable in one pass, then add richer detail only where needed.</div>
       <div class="legend">
-        <span>single wide canvas</span>
-        <span>compact summary strip</span>
-        <span>collapsible detail panels</span>
-        <span>dashboard palette</span>
+        <span>inputs</span>
+        <span>orchestration</span>
+        <span>memory / retrieval</span>
+        <span>outputs</span>
+        <span>recovery</span>
       </div>
     </div>
   </div>
